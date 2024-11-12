@@ -2,7 +2,7 @@ import style from "./input.module.css";
 
 const Input = ({ type, text, name, id, placeholder, Onchange, value }) => {
   return (
-    <div className={style.container}>
+    <div className={style.container} autoComplete="off">
       <label htmlFor={name}>{text}:</label>
       <input
         autoComplete="off"
@@ -12,7 +12,7 @@ const Input = ({ type, text, name, id, placeholder, Onchange, value }) => {
         placeholder={placeholder}
         onChange={Onchange}
         value={value}
-        autro
+        
       />
     </div>
   );
