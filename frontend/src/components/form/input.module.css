@@ -1,0 +1,25 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+.container label {
+  color: #4f46e5;
+  font-size: 16px;
+  padding-right: 1.5em;
+  margin-bottom: 10px;
+}
+.container input {
+  outline: 0;
+  text-indent: 10px;
+  border-radius: 10px;
+  height: 30px;
+  width: 300px;
+  border: none;
+  font-size: 1.1em;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px 1px rgb(198, 194, 194);
+}
+.container input::placeholder {
+  color: #d4d4d8;
+}
