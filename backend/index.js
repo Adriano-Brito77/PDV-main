@@ -16,10 +16,12 @@ app.use(express.static("public"));
 //Import de Routes
 const UserRoutes = require("./routes/UserRoutes");
 const ItensRouter = require("./routes/ItensRoutes");
+const SaleRouter = require("./routes/SaleRoutes")
 
 //Routes
 app.use("/users", UserRoutes);
 app.use("/itens", ItensRouter);
+app.use("/sales", SaleRouter)
 
 app.listen(5000, (err) => {
   if (err) {
