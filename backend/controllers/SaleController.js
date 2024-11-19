@@ -1,12 +1,49 @@
+const Sale = require("../models/Sale");
+const SaleItems = require("../models/SaleItems");
 
-const Sale = require('../models/Sale')
+module.exports = class SaleController {
+  static async register(req, res) {
+    let numbersales;
 
-module.exports =  class SaleController{
+    const { grossvalue, deduction, add, totalvalue } = req.body;
+    const { name } = req.user;
+    const { description, barcode, unit, salebalance } = req.body.items;
 
-    static async register(req, res){
+    const salenum = await Sale.findOne().sort({ numsales: -1 }).limit(1);
 
-       const{description, numsales, unit, unitprice, amount, username} = req.body
+    if (salenum === null) {
+      numbersales = 1;
+    } else {
+      numbersales = salenum.numsales + 1;
     }
 
+    const numsales = numbersales;
 
-}
+    const sale = new Sale({
+      numsales,
+      grossvalue,
+      deduction,
+      add,
+      totalvalue,
+      username: name,
+    });
+
+    const saleitem = new SaleItems({
+      numsales,
+      item: {
+        description,
+        barcode,
+        unit,
+        salebalance,
+      },
+    });
+
+    try {
+      const newSale = await sale.save();
+      const newSaleItem = await saleitem.save();
+      res.status(200).json({ message: "Venda concluida com sucesso" });
+    } catch (err) {
+      res.status(500).json({ message: err });
+    }
+  }
+};

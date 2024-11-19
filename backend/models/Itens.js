@@ -18,7 +18,7 @@ const Itens = mongoose.model(
         type: String,
         require: true,
       },
-      amount: {
+      balance: {
         type: Number,
         require: true,
       },

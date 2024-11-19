@@ -2,7 +2,7 @@ const Itens = require("../models/Itens");
 
 module.exports = class ItensControler {
   static async create(req, res) {
-    const { name, barcode, unit, amount } = req.body;
+    const { name, barcode, unit, balance } = req.body;
 
     //validation
     if (!name) {
@@ -31,11 +31,11 @@ module.exports = class ItensControler {
       res.status(422).json({ message: "Preencha a unidade do item" });
       return;
     }
-    if (!amount) {
+    if (!balance) {
       res.status(422).json({ message: "A quatidade é obrigatoria" });
       return;
     }
-    if (typeof amount !== "number") {
+    if (typeof balance !== "number") {
       res.status(422).json({ message: "O codigo deve ser um numero" });
       return;
     }
@@ -46,7 +46,7 @@ module.exports = class ItensControler {
       name,
       barcode,
       unit,
-      amount,
+      balance,
     });
 
     try {
@@ -76,8 +76,9 @@ module.exports = class ItensControler {
     const id = req.params.id;
 
     const Item = await Itens.findById(id);
+    console.log(Item);
 
-    const { name, barcode, unit, amount } = req.body;
+    const { name, barcode, unit, balance } = req.body;
     if (Item) {
       (Item.name = name), (Item.unit = unit);
     }
@@ -88,13 +89,13 @@ module.exports = class ItensControler {
       Item.barcode = barcode;
     }
 
-    if (typeof amount !== "number") {
+    if (typeof balance !== "number") {
       res
         .status(422)
         .json({ message: "A quantidade deve ser um numero real!" });
       return;
     } else {
-      Item.amount = amount;
+      Item.balance = balance;
     }
 
     try {
