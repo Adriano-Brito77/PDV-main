@@ -1,39 +1,40 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Input from "../../form/input";
 import logo from "../../../assets/img/car.png";
 import style from "../Auth/Login.module.css";
-import {Link }from "react-router-dom"
+import { Link } from "react-router-dom";
+import Context from "../../../context/UserContext";
+import Message from "../../layout/Message";
 
 const Login = () => {
   const [user, setUser] = useState({});
-
-  const handleChange = (e) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
-    console.log(user);
-  };
+  const { login } = useContext(Context);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(user);
+    login(user);
+  };
+  const handleChange = (e) => {
+    setUser({ ...user, [e.target.name]: e.target.value });
   };
 
   return (
     <section className={style.section}>
-      <img src={logo} alt="teste" className={style.img} />
+      <img src={logo} className={style.img} />
       <div className={style.login}>
         <div className={style.titulo}>
           <h1>Login</h1>
         </div>
-        <form onSubmit={handleSubmit} autoComplete="no">
+        <form onSubmit={handleSubmit}>
           <Input
-            name="e-mail"
+            name="email"
             text="E-mail"
-            type="name"
+            type="email"
             placeholder="E-mail"
             Onchange={handleChange}
           />
           <Input
-            name="senha"
+            name="password"
             text="Senha"
             type="password"
             placeholder="Senha"
@@ -41,7 +42,7 @@ const Login = () => {
           />
           <div className={style.pa}>
             <Link>Esqueceu a senha?</Link>
-            <Link to="/register" >Criar sua conta</Link>
+            <Link to="/register">Criar sua conta</Link>
           </div>
           <input type="submit" value="Entrar" />
         </form>

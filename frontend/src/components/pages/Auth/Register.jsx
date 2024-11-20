@@ -25,7 +25,6 @@ const Register = () => {
 
   return (
     <section className={styles.section}>
-      <Message />
       <div className={styles.register}>
         <h1>Crie sua conta!</h1>
         <form onSubmit={handleSubmit} autoComplete="off">
