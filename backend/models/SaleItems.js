@@ -10,7 +10,7 @@ const SaleItems = mongoose.model(
       numsales: {
         type: Number,
       },
-      item: Object,
+      items: Array,
     },
     { timestamps: true }
   )

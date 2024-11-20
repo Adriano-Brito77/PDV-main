@@ -3,24 +3,40 @@ const SaleItems = require("../models/SaleItems");
 
 module.exports = class SaleController {
   static async register(req, res) {
-    let numbersales;
-
     const { grossvalue, deduction, add, totalvalue } = req.body;
     const { name } = req.user;
-    const { description, barcode, unit, salebalance } = req.body.items;
+    const Item = req.body.items;
 
+    if (typeof grossvalue !== "number") {
+      res.status(422).json({ message: "Os valor bruto dever ser um numero " });
+      return;
+    }
+    if (typeof deduction !== "number") {
+      res.status(422).json({ message: "O desconto deve ser um numero " });
+      return;
+    }
+    if (typeof add !== "number") {
+      res.status(422).json({ message: "O acréscimo dever ser um numero " });
+      return;
+    }
+    if (typeof totalvalue !== "number") {
+      res.status(422).json({ message: "Os valor total dever ser um numero " });
+      return;
+    }
+
+    // validar se existe venda
     const salenum = await Sale.findOne().sort({ numsales: -1 }).limit(1);
 
+    let numbersales;
+    //incrementar numero da venda
     if (salenum === null) {
       numbersales = 1;
     } else {
       numbersales = salenum.numsales + 1;
     }
 
-    const numsales = numbersales;
-
     const sale = new Sale({
-      numsales,
+      numsales: numbersales,
       grossvalue,
       deduction,
       add,
@@ -29,13 +45,8 @@ module.exports = class SaleController {
     });
 
     const saleitem = new SaleItems({
-      numsales,
-      item: {
-        description,
-        barcode,
-        unit,
-        salebalance,
-      },
+      numsales: numbersales,
+      items: Item,
     });
 
     try {

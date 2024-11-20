@@ -14,11 +14,15 @@ const Itens = mongoose.model(
         type: Number,
         require: true,
       },
+      unitprice: {
+        type: Number,
+        require: true,
+      },
       unit: {
         type: String,
         require: true,
       },
-      balance: {
+      stok: {
         type: Number,
         require: true,
       },

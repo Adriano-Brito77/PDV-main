@@ -71,6 +71,8 @@ module.exports = class UserController {
 
   static async login(req, res) {
     const { email, password } = req.body;
+    console.log(req.body);
+    console.log(email);
 
     if (!email) {
       res.status(422).json({ message: "O E-mail é obrigatorio" });
