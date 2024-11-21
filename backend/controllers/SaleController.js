@@ -35,8 +35,11 @@ module.exports = class SaleController {
       numbersales = salenum.numsales + 1;
     }
 
+    const numsales = numbersales;
+    console.log(numsales);
+
     const sale = new Sale({
-      numsales: numbersales,
+      numsales,
       grossvalue,
       deduction,
       add,
