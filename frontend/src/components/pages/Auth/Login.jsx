@@ -4,7 +4,6 @@ import logo from "../../../assets/img/car.png";
 import style from "../Auth/Login.module.css";
 import { Link } from "react-router-dom";
 import Context from "../../../context/UserContext";
-import Message from "../../layout/Message";
 
 const Login = () => {
   const [user, setUser] = useState({});

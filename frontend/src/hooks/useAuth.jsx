@@ -11,23 +11,24 @@ export const useAuth = () => {
   const { setFlashMessage } = UseFlashMessage();
 
   const register = async (user) => {
-    let msgText = "Cadastro realizado com suecesso";
-    let msgType = "sucess";
+    let msgText = "Cadastro realizado com sucesso";
+    let msgtype = "sucess";
 
     try {
       const data = await api.post("/users/register", user).then((response) => {
         return response.data;
       });
+
+      await pagepush();
     } catch (error) {
       msgText = error.response.data.message;
-      msgType = "error";
+      msgtype = "error";
     }
-    setFlashMessage(msgText, msgType);
-    history("/");
+    setFlashMessage(msgText, msgtype);
   };
   const login = async (user) => {
     let msgText = "Login realizado com sucesso!";
-    let msgType = "success";
+    let msgtype = "sucess";
 
     try {
       const data = await api.post("/users/login", user).then((response) => {
@@ -37,14 +38,17 @@ export const useAuth = () => {
       console.log(data);
     } catch (error) {
       msgText = error.response.data.message;
-      msgType = error;
+      msgtype = error;
     }
-    setFlashMessage(msgText, msgType);
+    setFlashMessage(msgText, msgtype);
   };
   const authUser = async (data) => {
     setAuthenticated(true);
     localStorage.setItem("token", JSON.stringify(data.token));
     history("/sale");
+  };
+  const pagepush = async () => {
+    history("/");
   };
 
   return { register, login };
