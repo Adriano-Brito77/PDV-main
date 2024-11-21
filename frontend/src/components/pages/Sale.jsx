@@ -1,5 +1,6 @@
 import styles from "./Sale.module.css";
 import Navbar from "../layout/Navbar";
+import InputSale from '../form/InputSale'
 
 const Sale = () => {
   return (
@@ -37,7 +38,51 @@ const Sale = () => {
         </div>
 
         <div className={styles.container_right}>
-          <h1></h1>
+          <InputSale 
+          name='barcode'
+          type='number'
+          text="codigo de barras"
+         />
+          <InputSale
+          name='salebalance'
+          type='number'
+          text="Quantidade do item"
+          />
+          <InputSale
+          name='description'
+          type='number'
+          text="Descrição do item"
+          disabled
+          />
+          <InputSale
+          name='unitprice'
+          type='number'
+          text="Preço Unitário"
+          />
+          <InputSale
+          name='unit'
+          type='number'
+          text="Unidade"
+          />
+          <InputSale
+          name='unit'
+          type='number'
+          text="Unidade"
+          />
+          <InputSale
+          name='unit'
+          type='number'
+          text="Unidade"
+          />
+          <InputSale
+          name='unit'
+          type='number'
+          text="Unidade"
+          />
+         
+          
+          
+
         </div>
       </div>
     </div>

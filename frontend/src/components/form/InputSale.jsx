@@ -1,9 +1,9 @@
-import style from "./input.module.css";
+import style from "./InputSale.module.css";
 
-const Input = ({ type, text, name, id, placeholder, Onchange, value }) => {
+const InputSale = ({ type, text, name, id, placeholder, Onchange, value,disabled }) => {
   return (
     <div className={style.container}>
-      <label className={style.label_input } htmlFor={name}>{text}:</label>
+      <label htmlFor={name}>{text}:</label>
       <input
         type={type}
         name={name}
@@ -11,9 +11,10 @@ const Input = ({ type, text, name, id, placeholder, Onchange, value }) => {
         placeholder={placeholder}
         onChange={Onchange}
         value={value}
+        disabled = {disabled}
       />
     </div>
   );
 };
 
-export default Input;
+export default InputSale;

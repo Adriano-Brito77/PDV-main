@@ -1,24 +1,28 @@
 .container {
   background-color: #a5b4fc;
   height: 100vh;
+  
+  
 }
 .container_central {
   display: flex;
-  flex-direction: row;
+  margin-top: 85px;
+  
 }
 
 .container_left {
-  margin-top: 85px;
+  
   margin-left: 2em;
   height: 825px;
-  width: 50vw;
+  
 }
 .container_right {
-  margin-top: 85px;
-  margin-left: 2em;
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap; 
+  
+  margin-left: 4em;
   height: 825px;
-  width: 45vw;
-  background-color: rgb(118, 100, 100);
 }
 
 .productlist {
@@ -99,4 +103,11 @@
 .value p {
   font-size: 30px;
   color: #6366f1;
+}
+
+
+
+.container_right input[type='number']::-webkit-inner-spin-button{
+ 
+  display: none;
 }
