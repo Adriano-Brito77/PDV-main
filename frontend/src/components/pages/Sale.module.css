@@ -1,26 +1,21 @@
 .container {
   background-color: #a5b4fc;
   height: 100vh;
-  
-  
+  overflow: hidden;
 }
 .container_central {
   display: flex;
   margin-top: 85px;
-  
 }
 
 .container_left {
-  
-  margin-left: 2em;
-  height: 825px;
-  
+  margin-left: 10em;
 }
 .container_right {
   display: flex;
   align-items: flex-start;
-  flex-wrap: wrap; 
-  
+  flex-wrap: wrap;
+
   margin-left: 4em;
   height: 825px;
 }
@@ -79,35 +74,56 @@
   color: #818cf8;
 }
 
-.title_list h1 {
-  padding: 5px;
-  font-size: 24px;
-  background-color: #6366f1;
-  width: 650px;
-  color: #fff;
-  margin-top: 1em;
-  border-radius: 10px 10px 0px 0px;
+.title_list {
+  display: flex;
+  align-items: end;
+  justify-content: end;
 }
 
-.value {
+.title_list input {
+  background-color: #fff;
+  outline: 0;
   display: flex;
   height: 70px;
-  background-color: white;
-  width: 650px;
+  width: 300px;
+  border: none;
+  font-size: 1.1em;
+  cursor: pointer;
   border-radius: 0px 0px 10px 10px;
   justify-content: end;
   align-items: center;
   padding: 20px;
-}
-
-.value p {
   font-size: 30px;
   color: #6366f1;
 }
-
-
-
-.container_right input[type='number']::-webkit-inner-spin-button{
- 
+.title_list input::-webkit-inner-spin-button {
   display: none;
+}
+
+.title_list label {
+  margin-top: 17px;
+}
+
+.container_right input[type="number"]::-webkit-inner-spin-button {
+  display: none;
+}
+
+.container_right input[type="submit"] {
+  margin-top: 38px;
+  background-color: #fff;
+  outline: 0;
+  display: flex;
+  height: 70px;
+  width: 400px;
+  border: none;
+  font-size: 1.1em;
+  cursor: pointer;
+  border-radius: 10px;
+  justify-content: end;
+  align-items: center;
+  padding: 20px;
+  font-size: 30px;
+  color: #6366f1;
+  border: solid 1px;
+  margin-left: 20px;
 }

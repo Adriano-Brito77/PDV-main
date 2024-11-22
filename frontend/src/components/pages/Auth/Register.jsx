@@ -6,7 +6,6 @@ import styles from "./Register.module.css";
 
 //components
 import Input from "../../form/input";
-import Message from "../../layout/Message";
 
 //context
 import Context from "../../../context/UserContext";
@@ -21,6 +20,7 @@ const Register = () => {
   };
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
+    console.log(user);
   };
 
   return (
