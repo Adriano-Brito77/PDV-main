@@ -8,7 +8,7 @@ const Sale = mongoose.model(
     numsales: {
       type: Number,
     },
-    grossvalue: {
+    totalvalue: {
       type: Number,
       require: true,
     },
@@ -18,9 +18,12 @@ const Sale = mongoose.model(
     add: {
       type: Number,
     },
-    totalvalue: {
+    receive: {
       type: Number,
       require: true,
+    },
+    change: {
+      type: Number,
     },
     username: {
       type: String,
