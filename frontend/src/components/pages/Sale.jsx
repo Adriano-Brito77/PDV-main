@@ -2,24 +2,45 @@ import styles from "./Sale.module.css";
 import Navbar from "../layout/Navbar";
 import InputSale from "../form/InputSale";
 import api from "../../utils/api";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 const Sale = () => {
   //propriedade dos itens
-  const [description, setdescription] = useState("");
-  const [barcode, setbarcode] = useState({});
-  const [unitprice, setunitprice] = useState("");
-  const [unit, setunit] = useState("");
-  const [salebalance, setsalebalance] = useState("");
+  const [description, setDescription] = useState(" ");
+  const [barcode, setBarcode] = useState("0");
+  const [unitprice, setUnitPrice] = useState(" ");
+  const [unit, setUnit] = useState(" ");
+  const [salebalance, setSaleBalance] = useState("");
 
-  const [items, setitems] = useState([]);
+  const [items, setItems] = useState("");
 
   //Propriedades da venda
-  const [totalvalue, settotalvalue] = useState("");
-  const [deduction, setdeduction] = useState("");
-  const [add, setadd] = useState("");
-  const [receive, setreceive] = useState("");
-  const [change, setchange] = useState("");
+  const [totalvalue, setTotalValue] = useState("");
+  const [deduction, setDeduction] = useState("");
+  const [add, setAdd] = useState("");
+  const [receive, setReceive] = useState("");
+  const [change, setChange] = useState("");
+
+  useEffect(() => {
+    if (barcode) {
+      api.get(`itens/getitembarcode/${barcode}`).then((response) => {
+        return setItems(response.data.item);
+      });
+    }
+  }, [barcode]);
+
+  useEffect(() => {
+    if (!items || items === null || items === undefined || items === " ") {
+      setDescription(" ");
+      setUnitPrice(" ");
+      setUnit(" ");
+    } else {
+      setDescription(items.name);
+      setUnitPrice(items.unitprice);
+      setUnit(items.unit);
+    }
+  }, [items]);
 
   return (
     <div className={styles.container}>
@@ -41,8 +62,11 @@ const Sale = () => {
               <p>Total</p>
             </div>
             <div className={styles.item}>
-              <span>teste</span>
-              <span>teste2</span>
+              {items?.length > 0 &&
+                items.map((item) => {
+                  <span>{item.description}</span>;
+                })}
+              <span>teste1</span>
             </div>
           </div>
 
@@ -57,48 +81,51 @@ const Sale = () => {
           </div>
         </div>
 
-        <div className={styles.container_right}>
-          <InputSale name="barcode" type="number" text="Codigo de barras" />
-          <InputSale
-            name="salebalance"
-            type="number"
-            text="Quantidade do item"
-            value={salebalance}
-          />
-          <InputSale
-            name="description"
-            type="text"
-            text="Descrição do item"
-            value={description}
-            disabled
-          />
-          <InputSale
-            name="unitprice"
-            type="number"
-            text="Preço Unitário"
-            value={unitprice}
-            disabled
-          />
-          <InputSale
-            name="deduction"
-            type="number"
-            text="Desconto"
-            value={deduction}
-          />
-          <InputSale name="add" type="number" text="Acrescimo" value={add} />
-          <InputSale
-            name="receive"
-            type="number"
-            text="Valor recebido"
-            value={receive}
-          />
-          <InputSale
-            name="change"
-            type="number"
-            text="Troco"
-            value={change}
-            disabled
-          />
+        <div>
+          <div className={styles.container_right}>
+            <InputSale
+              name="barcode"
+              type="number"
+              text="Codigo de barras"
+              Onchange={(e) => {
+                setBarcode(e.target.value);
+              }}
+            />
+            <InputSale
+              name="salebalance"
+              type="number"
+              text="Quantidade do item"
+              Onchange={(e) => {
+                setSaleBalance(e.target.value);
+              }}
+            />
+            <InputSale
+              name="description"
+              type="text"
+              text="Descrição do item"
+              value={description}
+              disabled
+            />
+            <InputSale
+              name="unitprice"
+              type="number"
+              text="Preço Unitário"
+              value={unitprice}
+              disabled
+            />
+            <InputSale
+              name="deduction"
+              type="string"
+              text="Unidade"
+              value={unit}
+              disabled
+            />
+          </div>
+
+          <div className={styles.container_right}>
+            <InputSale name="receive" type="number" text="Valor recebido" />
+            <InputSale name="change" type="number" text="Troco" disabled />
+          </div>
         </div>
       </div>
     </div>
