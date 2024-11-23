@@ -70,13 +70,15 @@ module.exports = class ItensControler {
     });
   }
   static async getitembarcode(req, res) {
+    console.log(req.params.id);
     const code = req.params.id;
-    console.log(req);
 
-    const item = await Itens.find({ barcode: code });
+    const item = await Itens.findOne({ barcode: code });
+
+    console.log(code);
 
     res.status(200).json({
-      item: item,
+      item,
     });
   }
   static async gettItemId(req, res) {
