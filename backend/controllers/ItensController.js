@@ -75,8 +75,6 @@ module.exports = class ItensControler {
 
     const item = await Itens.findOne({ barcode: code });
 
-    console.log(code);
-
     res.status(200).json({
       item,
     });
