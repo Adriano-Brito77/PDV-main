@@ -1,6 +1,16 @@
 import style from "./InputSale.module.css";
 
-const InputSale = ({ type, text, name, id, placeholder, Onchange, value,disabled }) => {
+const InputSale = ({
+  type,
+  text,
+  name,
+  id,
+  placeholder,
+  Onchange,
+  value,
+  disabled,
+  Ref,
+}) => {
   return (
     <div className={style.container}>
       <label htmlFor={name}>{text}:</label>
@@ -11,7 +21,8 @@ const InputSale = ({ type, text, name, id, placeholder, Onchange, value,disabled
         placeholder={placeholder}
         onChange={Onchange}
         value={value}
-        disabled = {disabled}
+        disabled={disabled}
+        ref={Ref}
       />
     </div>
   );

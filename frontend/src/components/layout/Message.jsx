@@ -2,6 +2,7 @@ import styles from "./Message.module.css";
 
 import { useState, useEffect } from "react";
 import bus from "../../utils/bus";
+import Navbar from "./Navbar";
 
 const Message = () => {
   const [visibility, setVisibility] = useState(false);

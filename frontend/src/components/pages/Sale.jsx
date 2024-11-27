@@ -2,25 +2,28 @@ import styles from "./Sale.module.css";
 import Navbar from "../layout/Navbar";
 import InputSale from "../form/InputSale";
 import api from "../../utils/api";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect, useState, useRef } from "react";
 
 const Sale = () => {
-  //propriedade dos itens
+  const inputRef = useRef(null);
   const [description, setDescription] = useState("");
   const [barcode, setBarcode] = useState("");
   const [unitprice, setUnitPrice] = useState("");
   const [unit, setUnit] = useState("");
   const [salebalance, setSaleBalance] = useState("");
+  const [placeholder, setPlaceHolder] = useState("");
 
   const [items, setItems] = useState({});
   const [sale, setSale] = useState([]);
   const [numItem, setNumItem] = useState(0);
 
-  //Propriedades da venda
-  const [totalvalue, setTotalValue] = useState("");
   const [receive, setReceive] = useState("");
   const [change, setChange] = useState("");
+
+  const totalvalue = sale.reduce(
+    (total, item) => total + item.unitprice * item.salebalance,
+    0
+  );
 
   useEffect(() => {
     if (barcode) {
@@ -42,8 +45,14 @@ const Sale = () => {
     }
   }, [items]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!salebalance) {
+      inputRef.current.focus();
+      setPlaceHolder("Digite uma quantidade...");
+      return;
+    }
 
     const nextNumItem = numItem + 1;
     setNumItem(nextNumItem);
@@ -52,11 +61,13 @@ const Sale = () => {
       ...sale,
       { ...items, salebalance: salebalance, numitem: numItem + 1 },
     ]);
+
     setDescription("");
     setUnitPrice("");
     setUnit("");
     setBarcode("");
     setSaleBalance("");
+    setPlaceHolder("");
   };
 
   console.log(sale);
@@ -75,7 +86,7 @@ const Sale = () => {
               <p>N°item</p>
               <p>Descrição</p>
               <p>Codigo b.</p>
-              <p>Un</p>
+              <p>Unidade</p>
               <p>Qtd</p>
               <p>Val unitario</p>
               <p>Total</p>
@@ -121,10 +132,12 @@ const Sale = () => {
               name="salebalance"
               type="number"
               text="Quantidade do item"
+              placeholder={placeholder}
               Onchange={(e) => {
                 setSaleBalance(e.target.value);
               }}
               value={salebalance}
+              Ref={inputRef}
             />
             <InputSale
               name="description"
