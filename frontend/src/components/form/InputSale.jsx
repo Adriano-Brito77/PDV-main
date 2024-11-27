@@ -10,6 +10,7 @@ const InputSale = ({
   value,
   disabled,
   Ref,
+  Step
 }) => {
   return (
     <div className={style.container}>
@@ -23,6 +24,7 @@ const InputSale = ({
         value={value}
         disabled={disabled}
         ref={Ref}
+        step={Step}
       />
     </div>
   );

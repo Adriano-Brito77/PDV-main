@@ -45,7 +45,7 @@ const Sale = () => {
     }
   }, [items]);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     if (!salebalance) {
@@ -69,6 +69,16 @@ const Sale = () => {
     setSaleBalance("");
     setPlaceHolder("");
   };
+
+  const finishSale = async (e) =>{
+   if(!receive){
+    inputRef.current.focus();
+    setPlaceHolder("Digite uma quantidade...");
+    return;
+   }
+
+
+  }
 
   console.log(sale);
 
@@ -106,7 +116,8 @@ const Sale = () => {
             </div>
           </div>
 
-          <div className={styles.title_list}>
+          <form onSubmit={finishSale} className={styles.title_list}>
+          <button>Finalizar venda</button>
             <InputSale
               name="totalvalue"
               type="number"
@@ -114,7 +125,7 @@ const Sale = () => {
               value={totalvalue}
               disabled
             />
-          </div>
+          </form>
         </div>
 
         <div>
@@ -161,11 +172,22 @@ const Sale = () => {
               disabled
             />
 
-            <button>Registrar</button>
+            <button>Registrar item</button>
           </form>
 
           <div className={styles.container_right}>
-            <InputSale name="receive" type="number" text="Valor recebido" />
+            <InputSale 
+            name="receive" 
+            type="number" 
+            text="Valor recebido" 
+            Onchange={(e) => {
+              setReceive(e.target.value);
+              }}
+            value={receive}
+            Step=".01"
+            Ref={inputRef}
+            />
+            
             <InputSale name="change" type="number" text="Troco" disabled />
           </div>
         </div>
