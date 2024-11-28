@@ -1,13 +1,13 @@
 import styles from "./Sale.module.css";
-import Navbar from "../layout/Navbar";
 import InputSale from "../form/InputSale";
 import api from "../../utils/api";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
+import useFlashMessage from "../../hooks/useFlashMessage"
 
 const Sale = () => {
+  const  {setFlashMessage}  = useFlashMessage();
   const [token] = useState(localStorage.getItem("token") || "");
-  const inputRef = useRef(null);
-  const iref = useRef(null);
+  
   const [name, setname] = useState("");
   const [barcode, setBarcode] = useState("");
   const [unitprice, setUnitPrice] = useState("");
@@ -21,7 +21,7 @@ const Sale = () => {
 
   const [receive, setReceive] = useState(0);
   const [change, setChange] = useState(0);
-
+  const [disabled, setdisabled] = useState(true)
   const totalvalue = sale.reduce(
     (total, item) => total + item.unitprice * item.salebalance,
     0
@@ -47,13 +47,16 @@ const Sale = () => {
     }
   }, [items]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    let message = "Digite a quantidade do item"
+    let type = "error"
+    let background = 'indigo'
 
     if (!salebalance) {
-      iref.current.focus();
-      setPlaceHolder("Digite uma quantidade...");
-      return;
+      setFlashMessage(message, type, background)
+      return
     }
 
     const nextNumItem = numItem + 1;
@@ -70,7 +73,10 @@ const Sale = () => {
     setBarcode("");
     setSaleBalance("");
     setPlaceHolder("");
+    setdisabled(false)
   };
+
+  console.log(disabled)
 
   const saleitens = {
     totalvalue: totalvalue,
@@ -80,22 +86,36 @@ const Sale = () => {
   };
   const finishSale = async (e) => {
     e.preventDefault();
-    await api.post(
-      "sales/sale",
-      saleitens,
+    
 
-      {
-        headers: {
-          Authorization: `Bearer ${JSON.parse(token)}`,
-        },
-      }
-    );
+    let message = "Venda finalizado com sucesso"
+    let type = "sucess"
+    let background = 'indigo'
+    
+    
+    try {
+      await api.post(
+        "sales/sale",
+        saleitens,
+  
+        {
+          headers: {
+            Authorization: `Bearer ${JSON.parse(token)}`,
+          },
+        }
+      );
+      setFlashMessage(message,type,background)
+    } catch (error) {
+      
+    }
+   
+
     window.location.reload();
   };
 
   return (
     <div className={styles.container}>
-      <Navbar />
+    
 
       <div className={styles.container_central}>
         <div className={styles.container_left}>
@@ -128,7 +148,7 @@ const Sale = () => {
           </div>
 
           <form onSubmit={finishSale} className={styles.title_list}>
-            <button>Finalizar venda</button>
+            <button disabled={disabled} className={`${disabled ? styles.disabled: styles.enable}`} >Finalizar venda</button>
             <InputSale
               name="totalvalue"
               type="number"
@@ -159,7 +179,7 @@ const Sale = () => {
                 setSaleBalance(e.target.value);
               }}
               value={salebalance}
-              Ref={iref}
+              
             />
             <InputSale
               name="name"
@@ -196,8 +216,7 @@ const Sale = () => {
               }}
               value={receive}
               Step=".01"
-              Ref={inputRef}
-            />
+              />
 
             <InputSale name="change" type="number" text="Troco" disabled />
           </div>

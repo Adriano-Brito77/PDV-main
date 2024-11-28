@@ -4,7 +4,12 @@ import Register from "./components/pages/Auth/Register";
 
 //context
 import { UserProvider } from "./context/UserContext";
+
 import Sale from "./components/pages/Sale";
+
+import Navbar from "./components/layout/Navbar";
+import Message from "./components/layout/Message"
+
 
 
 function App() {
@@ -15,8 +20,11 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        
+      
         <UserProvider>
+        <Navbar/>
+          <Message/>
+      
           <div className="container">
             <Routes>
               <Route path="/" element={<Login /> }/>

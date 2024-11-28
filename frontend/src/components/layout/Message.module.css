@@ -1,11 +1,11 @@
+
+
 .message {
   width: 470px;
   padding: 1em;
   border: 1px solid #000;
   border-radius: 10px;
-  margin: 0 auto;
-  text-align: center;
-  margin-top: 2em;
+  text-align: center;  
 }
 
 .sucess {
@@ -18,4 +18,23 @@
   color: #721c24;
   background-color: #f8d7da;
   border-color: #f5c6cb;
+}
+
+
+.indigo{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #a5b4fc;
+  overflow: hidden;
+  padding-top: 1em;
+}
+
+.white{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  overflow: hidden;
+  padding-top: 1em;
 }

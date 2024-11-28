@@ -24,6 +24,7 @@ export const useAuth = () => {
   const register = async (user) => {
     let msgText = "Cadastro realizado com sucesso";
     let msgtype = "sucess";
+    let background = 'white'
 
     try {
       const data = await api.post("/users/register", user).then((response) => {
@@ -34,24 +35,28 @@ export const useAuth = () => {
     } catch (error) {
       msgText = error.response.data.message;
       msgtype = "error";
+      background = 'white'
     }
-    setFlashMessage(msgText, msgtype);
+    setFlashMessage(msgText, msgtype,background);
   };
   const login = async (user) => {
     let msgText = "Login realizado com sucesso!";
     let msgtype = "sucess";
+    let background = 'white'
 
     try {
       const data = await api.post("/users/login", user).then((response) => {
         return response.data;
       });
       await authUser(data);
-      console.log(data);
+      
     } catch (error) {
       msgText = error.response.data.message;
-      msgtype = error;
+      msgtype = "error";
+      background = 'white'
+      setFlashMessage(msgText, msgtype,background);
     }
-    setFlashMessage(msgText, msgtype);
+    setFlashMessage(msgText, msgtype,background);
   };
   const authUser = async (data) => {
     setAuthenticated(true);
@@ -62,5 +67,5 @@ export const useAuth = () => {
     history("/");
   };
 
-  return { register, login };
+  return { register, login,authenticated, loading };
 };

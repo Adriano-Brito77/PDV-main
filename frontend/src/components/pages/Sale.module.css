@@ -90,22 +90,6 @@
   justify-content: space-between;
 }
 
-.title_list button {
-  background-color: #6366f1;
-  outline: 0;
-  display: flex;
-  height: 110px;
-  width: 220px;
-  cursor: pointer;
-  border-radius: 10px;
-  justify-content: center;
-  align-items: center;
-  font-size: 30px;
-  color: #fff;
-  border: solid 1px;
-
- 
-}
 
 .title_list input {
   background-color: #fff;
@@ -173,4 +157,35 @@
 
 .container_right button:hover {
   opacity: 0.8;
+}
+
+.disabled{
+ 
+  outline: 0;
+  display: flex;
+  height: 110px;
+  width: 220px;
+  cursor: pointer;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  color: #fff;
+  border: solid 1px;
+  opacity: 0.9; 
+}
+.enable{
+  background-color:#6366f1;
+  outline: 0;
+  display: flex;
+  height: 110px;
+  width: 220px;
+  cursor: pointer;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  color: #fff;
+  border: solid 1px;
+
 }
