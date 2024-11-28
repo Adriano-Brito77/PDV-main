@@ -3,29 +3,19 @@ const SaleItems = require("../models/SaleItems");
 
 module.exports = class SaleController {
   static async register(req, res) {
-    const { totalvalue, deduction, add, receive, change } = req.body;
+    const { totalvalue, receive, change } = req.body;
     const { name } = req.user;
     const Item = req.body.items;
 
     if (typeof receive !== "number") {
-      res.status(422).json({ message: "Os valor bruto dever ser um numero " });
+      res
+        .status(422)
+        .json({ message: "O valor do recebimento dever ser um numero " });
       return;
     }
     if (typeof totalvalue !== "number") {
       res.status(422).json({ message: "Os valor total dever ser um numero " });
       return;
-    }
-    let Add;
-    let Deduction;
-    let Change;
-    if (!add) {
-      Add = 0;
-    }
-    if (!Deduction) {
-      Deduction = 0;
-    }
-    if (!Change) {
-      Change = 0;
     }
 
     // validar se existe venda
@@ -45,10 +35,8 @@ module.exports = class SaleController {
     const sale = new Sale({
       numsales,
       totalvalue,
-      deduction: Deduction,
-      add: Add,
       receive,
-      change: Change,
+      change,
       username: name,
     });
 
