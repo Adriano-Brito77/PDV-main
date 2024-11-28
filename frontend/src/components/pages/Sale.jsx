@@ -1,13 +1,13 @@
 import styles from "./Sale.module.css";
 import InputSale from "../form/InputSale";
 import api from "../../utils/api";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useFlashMessage from "../../hooks/useFlashMessage"
 
 const Sale = () => {
   const  {setFlashMessage}  = useFlashMessage();
   const [token] = useState(localStorage.getItem("token") || "");
-  
+  const ref = useRef(null)
   const [name, setname] = useState("");
   const [barcode, setBarcode] = useState("");
   const [unitprice, setUnitPrice] = useState("");
@@ -54,6 +54,15 @@ const Sale = () => {
     let type = "error"
     let background = 'indigo'
 
+    if (!barcode) {
+      let message = "Digite o codigo do item"
+      let type = "error"
+      let background = 'indigo'
+
+      setFlashMessage(message, type, background)
+      return
+    }
+
     if (!salebalance) {
       setFlashMessage(message, type, background)
       return
@@ -74,6 +83,7 @@ const Sale = () => {
     setSaleBalance("");
     setPlaceHolder("");
     setdisabled(false)
+    ref.current.focus()
   };
 
   console.log(disabled)
@@ -104,13 +114,23 @@ const Sale = () => {
           },
         }
       );
-      setFlashMessage(message,type,background)
+    setname("");
+    setUnitPrice("");
+    setUnit("");
+    setBarcode("");
+    setSaleBalance("");
+    setPlaceHolder("");
+    setdisabled(false)
+    setSale([])
+    ref.current.focus()
+
+
+    setFlashMessage(message,type,background)
+    
     } catch (error) {
       
     }
-   
-
-    window.location.reload();
+    
   };
 
   return (
@@ -169,6 +189,8 @@ const Sale = () => {
                 setBarcode(e.target.value);
               }}
               value={barcode}
+              
+              Ref={ref}
             />
             <InputSale
               name="salebalance"
