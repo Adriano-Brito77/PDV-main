@@ -5,8 +5,10 @@ import api from "../../utils/api";
 import { useEffect, useState, useRef } from "react";
 
 const Sale = () => {
+  const [token] = useState(localStorage.getItem("token") || "");
   const inputRef = useRef(null);
-  const [description, setDescription] = useState("");
+  const iref = useRef(null);
+  const [name, setname] = useState("");
   const [barcode, setBarcode] = useState("");
   const [unitprice, setUnitPrice] = useState("");
   const [unit, setUnit] = useState("");
@@ -17,8 +19,8 @@ const Sale = () => {
   const [sale, setSale] = useState([]);
   const [numItem, setNumItem] = useState(0);
 
-  const [receive, setReceive] = useState("");
-  const [change, setChange] = useState("");
+  const [receive, setReceive] = useState(0);
+  const [change, setChange] = useState(0);
 
   const totalvalue = sale.reduce(
     (total, item) => total + item.unitprice * item.salebalance,
@@ -35,11 +37,11 @@ const Sale = () => {
 
   useEffect(() => {
     if (!items || items === null || items === undefined || items === " ") {
-      setDescription("");
+      setname("");
       setUnitPrice("");
       setUnit("");
     } else {
-      setDescription(items.name);
+      setname(items.name);
       setUnitPrice(items.unitprice);
       setUnit(items.unit);
     }
@@ -49,7 +51,7 @@ const Sale = () => {
     e.preventDefault();
 
     if (!salebalance) {
-      inputRef.current.focus();
+      iref.current.focus();
       setPlaceHolder("Digite uma quantidade...");
       return;
     }
@@ -62,7 +64,7 @@ const Sale = () => {
       { ...items, salebalance: salebalance, numitem: numItem + 1 },
     ]);
 
-    setDescription("");
+    setname("");
     setUnitPrice("");
     setUnit("");
     setBarcode("");
@@ -70,17 +72,26 @@ const Sale = () => {
     setPlaceHolder("");
   };
 
-  const finishSale = async (e) =>{
-   if(!receive){
-    inputRef.current.focus();
-    setPlaceHolder("Digite uma quantidade...");
-    return;
-   }
+  const saleitens = {
+    totalvalue: totalvalue,
+    receive: receive,
+    change: change,
+    items: sale,
+  };
+  const finishSale = async (e) => {
+    e.preventDefault();
+    await api.post(
+      "sales/sale",
+      saleitens,
 
-
-  }
-
-  console.log(sale);
+      {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(token)}`,
+        },
+      }
+    );
+    window.location.reload();
+  };
 
   return (
     <div className={styles.container}>
@@ -117,7 +128,7 @@ const Sale = () => {
           </div>
 
           <form onSubmit={finishSale} className={styles.title_list}>
-          <button>Finalizar venda</button>
+            <button>Finalizar venda</button>
             <InputSale
               name="totalvalue"
               type="number"
@@ -148,13 +159,13 @@ const Sale = () => {
                 setSaleBalance(e.target.value);
               }}
               value={salebalance}
-              Ref={inputRef}
+              Ref={iref}
             />
             <InputSale
-              name="description"
+              name="name"
               type="text"
               text="Descrição do item"
-              value={description}
+              value={name}
               disabled
             />
             <InputSale
@@ -176,18 +187,18 @@ const Sale = () => {
           </form>
 
           <div className={styles.container_right}>
-            <InputSale 
-            name="receive" 
-            type="number" 
-            text="Valor recebido" 
-            Onchange={(e) => {
-              setReceive(e.target.value);
+            <InputSale
+              name="receive"
+              type="number"
+              text="Valor recebido"
+              Onchange={(e) => {
+                setReceive(e.target.value);
               }}
-            value={receive}
-            Step=".01"
-            Ref={inputRef}
+              value={receive}
+              Step=".01"
+              Ref={inputRef}
             />
-            
+
             <InputSale name="change" type="number" text="Troco" disabled />
           </div>
         </div>
