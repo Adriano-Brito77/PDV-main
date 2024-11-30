@@ -1,0 +1,45 @@
+.container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal {
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  max-width: 500px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.modal input[type="number"]::-webkit-inner-spin-button {
+  display: none;
+}
+
+.container_button {
+  display: flex;
+  height: 100%;
+  justify-content: space-between;
+  margin: 3px 3px;
+  padding: 3px 3px;
+}
+
+.container_button button {
+  padding: 10px;
+  width: 100px;
+  border: solid 1px;
+  border-color: #fff;
+  color: #ffffff;
+  background-color: #6366f1;
+  border-radius: 10px;
+}
+
+.container_button button:hover {
+  opacity: 0.7;
+}

@@ -26,7 +26,7 @@ function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/sale" element={<Sale />} />
               <Route path="/itens" element={<Itens />} />
-              <Route path="/modal" element={<Modal />} />
+              <Route path="/itens/register" element={<Modal />} />
             </Routes>
           </div>
         </UserProvider>

@@ -17,7 +17,7 @@ const Navbar = () => {
             <Link to="/sale">Vender</Link>
           </div>
           <div className={styles.user}>
-            <Link>Usuario</Link>
+            <Link>Sair</Link>
           </div>
         </div>
       )}
