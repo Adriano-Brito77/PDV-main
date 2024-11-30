@@ -6,13 +6,8 @@ module.exports = class SaleController {
     const { totalvalue, receive, change } = req.body;
     const { name } = req.user;
     const Item = req.body.items;
+    console.log(typeof receive);
 
-    if (typeof receive !== "number") {
-      res
-        .status(422)
-        .json({ message: "O valor do recebimento dever ser um numero " });
-      return;
-    }
     if (typeof totalvalue !== "number") {
       res.status(422).json({ message: "Os valor total dever ser um numero " });
       return;
