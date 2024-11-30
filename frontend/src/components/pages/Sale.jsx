@@ -2,13 +2,13 @@ import styles from "./Sale.module.css";
 import InputSale from "../form/InputSale";
 import api from "../../utils/api";
 import { useEffect, useRef, useState } from "react";
-import useFlashMessage from "../../hooks/useFlashMessage"
+import useFlashMessage from "../../hooks/useFlashMessage";
 
 const Sale = () => {
-  const  {setFlashMessage}  = useFlashMessage();
+  const { setFlashMessage } = useFlashMessage();
   const [token] = useState(localStorage.getItem("token") || "");
-  const ref = useRef(null)
-  const [name, setname] = useState("");
+  const ref = useRef(null);
+  const [name, setName] = useState("");
   const [barcode, setBarcode] = useState("");
   const [unitprice, setUnitPrice] = useState("");
   const [unit, setUnit] = useState("");
@@ -21,7 +21,8 @@ const Sale = () => {
 
   const [receive, setReceive] = useState(0);
   const [change, setChange] = useState(0);
-  const [disabled, setdisabled] = useState(true)
+  const [disabled, setdisabled] = useState(true);
+
   const totalvalue = sale.reduce(
     (total, item) => total + item.unitprice * item.salebalance,
     0
@@ -32,16 +33,17 @@ const Sale = () => {
       api.get(`itens/getitembarcode/${barcode}`).then((response) => {
         return setItems(response.data.item);
       });
+      setChange(0);
     }
   }, [barcode]);
 
   useEffect(() => {
     if (!items || items === null || items === undefined || items === " ") {
-      setname("");
+      setName("");
       setUnitPrice("");
       setUnit("");
     } else {
-      setname(items.name);
+      setName(items.name);
       setUnitPrice(items.unitprice);
       setUnit(items.unit);
     }
@@ -49,23 +51,23 @@ const Sale = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    let message = "Digite a quantidade do item"
-    let type = "error"
-    let background = 'indigo'
+
+    let message = "Digite a quantidade do item";
+    let type = "error";
+    let background = "indigo";
 
     if (!barcode) {
-      let message = "Digite o codigo do item"
-      let type = "error"
-      let background = 'indigo'
+      let message = "Digite o codigo do item";
+      let type = "error";
+      let background = "indigo";
 
-      setFlashMessage(message, type, background)
-      return
+      setFlashMessage(message, type, background);
+      return;
     }
 
     if (!salebalance) {
-      setFlashMessage(message, type, background)
-      return
+      setFlashMessage(message, type, background);
+      return;
     }
 
     const nextNumItem = numItem + 1;
@@ -76,17 +78,15 @@ const Sale = () => {
       { ...items, salebalance: salebalance, numitem: numItem + 1 },
     ]);
 
-    setname("");
+    setName("");
     setUnitPrice("");
     setUnit("");
     setBarcode("");
     setSaleBalance("");
     setPlaceHolder("");
-    setdisabled(false)
-    ref.current.focus()
+    setdisabled(false);
+    ref.current.focus();
   };
-
-  console.log(disabled)
 
   const saleitens = {
     totalvalue: totalvalue,
@@ -96,47 +96,45 @@ const Sale = () => {
   };
   const finishSale = async (e) => {
     e.preventDefault();
-    
 
-    let message = "Venda finalizado com sucesso"
-    let type = "sucess"
-    let background = 'indigo'
-    
-    
+    let message = "Venda finalizado com sucesso";
+    let type = "sucess";
+    let background = "indigo";
+
+    if (receive) {
+      setChange(receive - totalvalue);
+    }
+    console.log(saleitens);
+
     try {
       await api.post(
         "sales/sale",
         saleitens,
-  
+
         {
           headers: {
             Authorization: `Bearer ${JSON.parse(token)}`,
           },
         }
       );
-    setname("");
-    setUnitPrice("");
-    setUnit("");
-    setBarcode("");
-    setSaleBalance("");
-    setPlaceHolder("");
-    setdisabled(false)
-    setSale([])
-    ref.current.focus()
 
+      setName("");
+      setUnitPrice("");
+      setUnit("");
+      setBarcode("");
+      setSaleBalance("");
+      setPlaceHolder("");
+      setdisabled(false);
+      setReceive(0);
+      setSale([]);
+      ref.current.focus();
 
-    setFlashMessage(message,type,background)
-    
-    } catch (error) {
-      
-    }
-    
+      setFlashMessage(message, type, background);
+    } catch (error) {}
   };
 
   return (
     <div className={styles.container}>
-    
-
       <div className={styles.container_central}>
         <div className={styles.container_left}>
           <div className={styles.productlist}>
@@ -168,7 +166,12 @@ const Sale = () => {
           </div>
 
           <form onSubmit={finishSale} className={styles.title_list}>
-            <button disabled={disabled} className={`${disabled ? styles.disabled: styles.enable}`} >Finalizar venda</button>
+            <button
+              disabled={disabled}
+              className={`${disabled ? styles.disabled : styles.enable}`}
+            >
+              Finalizar venda
+            </button>
             <InputSale
               name="totalvalue"
               type="number"
@@ -189,7 +192,6 @@ const Sale = () => {
                 setBarcode(e.target.value);
               }}
               value={barcode}
-              
               Ref={ref}
             />
             <InputSale
@@ -201,7 +203,6 @@ const Sale = () => {
                 setSaleBalance(e.target.value);
               }}
               value={salebalance}
-              
             />
             <InputSale
               name="name"
@@ -237,10 +238,15 @@ const Sale = () => {
                 setReceive(e.target.value);
               }}
               value={receive}
-              Step=".01"
-              />
+            />
 
-            <InputSale name="change" type="number" text="Troco" disabled />
+            <InputSale
+              name="change"
+              type="number"
+              text="Troco"
+              value={change}
+              disabled
+            />
           </div>
         </div>
       </div>
