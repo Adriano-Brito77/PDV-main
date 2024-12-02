@@ -1,15 +1,14 @@
 import bus from "../utils/bus";
 
-const UseFlashMessage = () => {
+const useFlashMessage = () => {
   const setFlashMessage = (msg, type, background) => {
     bus.emit("flash", {
       message: msg,
       type: type,
-      background: background
-
+      background: background,
     });
   };
   return { setFlashMessage };
 };
 
-export default UseFlashMessage;
+export default useFlashMessage;

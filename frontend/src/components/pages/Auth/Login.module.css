@@ -14,6 +14,10 @@ section {
   border-radius: 10px 0px 0px 10px;
 }
 
+.titulo {
+  margin-top: 10px;
+}
+
 .login {
   display: flex;
   flex-direction: column;
@@ -28,7 +32,6 @@ section {
 }
 
 .login h1 {
-  padding-top: 1em;
   height: 50px;
   color: black;
   font-size: 2.1em;

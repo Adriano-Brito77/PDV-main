@@ -3,11 +3,14 @@ import styles from "./Itens.module.css";
 import { CgCloseR } from "react-icons/cg";
 import { FiEdit3 } from "react-icons/fi";
 import api from "../../utils/api";
-import { Link } from "react-router-dom";
 import Modal from "../form/Modal";
+
 const Itens = () => {
+  const [token] = useState(localStorage.getItem("token") || "");
   const [items, setItens] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [modaltype, setModalType] = useState("add");
+  const [selectedItem, setSelectedItem] = useState(null);
 
   useEffect(() => {
     try {
@@ -15,7 +18,27 @@ const Itens = () => {
         return setItens(response.data.itens);
       });
     } catch (error) {}
-  }, [items]);
+  }, [isOpen]);
+
+  const openModal = (type, item = null) => {
+    setIsOpen(true);
+    setModalType(type);
+    setSelectedItem(item);
+  };
+
+  const deleteItem = async (item) => {
+    try {
+      await api.delete(`itens/delete/${item._id}`, {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(token)}`,
+          "Content-Type": "application/json",
+        },
+      });
+      setItens((prevItems) => prevItems.filter((i) => i._id !== item._id));
+    } catch (error) {
+      console.error("Erro ao excluir item:", error);
+    }
+  };
 
   return (
     <div>
@@ -23,15 +46,15 @@ const Itens = () => {
         <div className={styles.btn}>
           <button
             className={styles.button_modal}
-            onClick={() => setIsOpen(true)}
+            onClick={() => openModal("add")}
           >
             Cadastrar
           </button>
-
           <Modal
             isOpen={isOpen}
             setIsOpen={() => setIsOpen(!isOpen)}
-            buttonname="Cadastrar"
+            type={modaltype}
+            item={selectedItem}
           />
         </div>
         <div className={styles.title}>
@@ -39,26 +62,34 @@ const Itens = () => {
         </div>
       </div>
       <div className={styles.container_list}>
-        {items.map((items) => (
-          <div key={items._id} className={styles.list}>
+        {items.map((item) => (
+          <div key={item._id} className={styles.list}>
             <span>
-              <label>Descrição:</label>
-              <p>{items.name}</p>
+              <label>Descrição : </label>
+              <p>{item.name}</p>
             </span>
             <span>
               <label>Cod. Barras:</label>
-              <p>{items.barcode}</p>
+              <p>{item.barcode}</p>
             </span>
-            <CgCloseR />
+            <CgCloseR onClick={() => deleteItem(item)} />
             <span>
               <label>Unidade:</label>
-              <p>{items.unit}</p>
+              <p>{item.unit}</p>
             </span>
             <span>
               <label>Valor unitario: </label>
-              <p>{items.unitprice}</p>
+              <p>{item.unitprice}</p>
             </span>
-            <FiEdit3 />
+            <span>
+              <label>Estoque: </label>
+              <p>{item.stok}</p>
+            </span>
+            <span>
+              <label> </label>
+              <p></p>
+            </span>
+            <FiEdit3 onClick={() => openModal("edit", item)} />
           </div>
         ))}
       </div>
