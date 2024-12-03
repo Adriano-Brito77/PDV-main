@@ -1,0 +1,41 @@
+.container{
+    background-color: #a5b4fc;
+    
+    overflow: hidden;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+   align-items: center;
+   padding-top: 20px;
+}
+
+.btn_sale {
+    min-width: 70%;
+    min-height: 100%;
+    display: flex;
+    justify-content: center;
+    
+    
+}
+
+
+.btn_sale button {
+    max-width: 40%;
+    max-height: 10%;
+    font-size: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    border: none;
+    border-radius: 10px;
+    
+    
+}
+
+.btn_sale p {
+   padding: 10px;
+   
+
+    
+}
+
