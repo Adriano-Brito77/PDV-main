@@ -82,6 +82,7 @@ const Salelist = () => {
                 <p>Dscrição: {item.name}</p>
                 <p>Preço unitário: {item.unitprice}</p>
                 <p>Unidade: {item.unit}</p>
+                <p>Qtd. vendida: {item.salebalance}</p>
               </span>
 
 )))))}
