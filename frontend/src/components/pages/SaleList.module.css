@@ -1,5 +1,6 @@
 .container_sale_list {
-  background-color: #a5b4fc;
+  /* background-color: #a5b4fc; */
+  background-color: red;
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
@@ -18,9 +19,9 @@
 }
 
 .btn_sale button {
-  background-color: #fff;
+  background-color: #6a6161;
   max-width: 40%;
-  max-height: 25vh;
+  max-height: 80vh;
   font-size: 20px;
   display: flex;
   flex-wrap: wrap;
@@ -38,6 +39,12 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+}
+.btn_sale section {
+  background-color: rgb(255, 255, 255);
+  height: 100px;
+
+
 }
 
 .btn_sale p {
