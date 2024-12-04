@@ -48,4 +48,27 @@ module.exports = class SaleController {
       res.status(500).json({ message: err });
     }
   }
+
+  static async getItensSales(req ,res){
+
+    const sales= await Sale.find().sort("numsales")
+    const itens= await SaleItems.find().sort("numsales")
+   
+
+    const Salelist = sales.map(sale =>{
+      return{
+      numsales:sale.numsales,
+      totalvalue: sale.totalvalue,
+      receive: sale.receive,
+      change: sale.change,
+      username:sale.username,
+      itens: itens.filter(item => item.numsales === sale.numsales)
+      
+      }
+  })
+      
+      res.status(200).json({Salelist})
+
+
+  }
 };
