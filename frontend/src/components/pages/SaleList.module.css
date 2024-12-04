@@ -1,41 +1,45 @@
-.container{
-    background-color: #a5b4fc;
-    
-    overflow: hidden;
-    display: flex;
-    justify-content: flex-start;
-    flex-direction: column;
-   align-items: center;
-   padding-top: 20px;
+.container_sale_list {
+  background-color: #a5b4fc;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding-top: 20px;
 }
 
 .btn_sale {
-    min-width: 70%;
-    min-height: 100%;
-    display: flex;
-    justify-content: center;
-    
-    
+  min-width: 70%;
+  min-height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
-
 .btn_sale button {
-    max-width: 40%;
-    max-height: 10%;
-    font-size: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    border: none;
-    border-radius: 10px;
-    
-    
+  background-color: #fff;
+  max-width: 40%;
+  max-height: 25vh;
+  font-size: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  border: none;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 20px;
+}
+.btn_sale span {
+  background-color: #fff;
+  max-width: 50%;
+  max-height: 25vh;
+  font-size: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
 .btn_sale p {
-   padding: 10px;
-   
-
-    
+  padding: 10px;
 }
-
