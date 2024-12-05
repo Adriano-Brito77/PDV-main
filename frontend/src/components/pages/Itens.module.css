@@ -36,6 +36,7 @@
 .container_list {
   height: 1000px;
   background-color: #a5b4fc;
+  color: #6366f1;
   display: flex;
   flex-wrap: wrap;
   align-items: CENTER;
@@ -44,20 +45,19 @@
 }
 
 .list {
-  background-color: #6366f1; /* Cor do fundo */
+  background-color: #fff; 
   width: 500px;
   height: 120px;
-  border-radius: 10px; /* Bordas arredondadas */
+  border-radius: 10px;
   display: flex;
-  flex-wrap: wrap; /* Permite que os itens "quebrem" */
-
-  align-items: center; /* Centralizar verticalmente */
-  margin-top: 2em; /* Distância entre os itens */
-  padding: 10px 15px; /* Margens internas */
-  border: solid 1px rgba(255, 255, 255, 0.2); /* Borda sutil */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para destaque */
-  color: #fff; /* Cor do texto */
-  gap: 15px; /* Espaço entre os itens internos */
+  flex-wrap: wrap; 
+  align-items: center; 
+  margin-top: 2em; 
+  padding: 10px 15px;
+  border: solid 1px rgba(255, 255, 255, 0.2); 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+  color: #6366f1; 
+  gap: 15px; 
 }
 
 .list span {
@@ -66,7 +66,7 @@
   color: #ffffff;
   align-items: center;
   padding-right: 7px;
-
+  color: #6366f1;
   width: 200px;
 }
 .list svg {

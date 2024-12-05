@@ -97,7 +97,11 @@ const Salelist = () => {
 
   const [visibleSales, setVisibleSales] = useState(false);
 
-  const togllevisibleSales = () => {};
+  const togllevisibleSales = (salelist) => {
+
+    setVisibleSales(!visibleSales)
+
+  };
 
   return (
     <div className={style.container_sale_list}>
