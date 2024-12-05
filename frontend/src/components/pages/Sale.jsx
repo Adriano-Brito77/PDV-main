@@ -134,7 +134,7 @@ const Sale = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container_sale}>
       <div className={styles.container_central}>
         <div className={styles.container_left}>
           <div className={styles.productlist}>

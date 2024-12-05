@@ -1,7 +1,6 @@
-.container {
+.container_sale {
   background-color: #a5b4fc;
   height: 100vh;
-  overflow: hidden;
 }
 .container_central {
   display: flex;
