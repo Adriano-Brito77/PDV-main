@@ -13,9 +13,8 @@ const Navbar = () => {
           <div className={styles.link}>
             <img src={car} />
             <Link to="/itens">Itens</Link>
-            <Link to='/salelist'>Vendas</Link>
+            <Link to="/salelist">Vendas</Link>
             <Link to="/sale">Vender</Link>
-            <Link to="/teste">teste</Link>
           </div>
           <div className={styles.user}>
             <Link>Sair</Link>

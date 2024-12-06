@@ -12,7 +12,6 @@ import Message from "./components/layout/Message";
 import Itens from "./components/pages/Itens";
 import Modal from "./components/form/Modal";
 import Salelist from "./components/pages/Salelist";
-import Teste from "./components/pages/teste"
 
 function App() {
   return (
@@ -27,10 +26,9 @@ function App() {
               <Route path="/" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/sale" element={<Sale />} />
-              <Route path="/salelist" element={<Salelist/>}/>
+              <Route path="/salelist" element={<Salelist />} />
               <Route path="/itens" element={<Itens />} />
               <Route path="/itens/register" element={<Modal />} />
-              <Route path="/teste" element={<Teste/>}/>
             </Routes>
           </div>
         </UserProvider>

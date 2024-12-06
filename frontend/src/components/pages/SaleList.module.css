@@ -1,83 +1,78 @@
 .container_sale_list {
-  background-color:#a5b4fc;
-  height: 100vh;
-}
-
-.sale {
   background-color: #a5b4fc;
+  height: 100vh;
   display: grid;
   justify-content: center;
-  flex-wrap: wrap;
-  gap: 20px;
 }
 
-
-.sale button {
-  border: none;
-  margin-top: 30px;
-  border-radius: 10px;
-  background-color: #6366f1;
-}
-
-.info_sale {
-  background-color: #4f46e5;
-  width: 500px;
-  border: none;
-}
-
-.info_sale span {
+.card_sale {
+  padding-top: 20px;
+  height: 90vh;
+  width: 1000px;
   display: flex;
-  padding: 10px;
-  flex-wrap: wrap;
-  font-size: 20px;
-  justify-content: space-between;
-
-  color: #fff;
-}
-
-.info_sale p {
-  padding: 5px;
-}
-
-.sale_itens {
-  background-color: #6366f1;
-  width: 500px;
-}
-
-.sale_itens span {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 10px;
-  border: 1px solid;
-  color: #fff;
-  margin-bottom: 10px;
-  border-radius: 10px;
-}
-
-.sale_itens_test span {
-  opacity: 0;
-  width: 0;
- 
-
-}
-.sale_itens_test p {
-  opacity: 0;
-  width: 0;
- 
-  
-}
-.sale_test {
-  display: flex;
+  justify-content: flex-start;
   flex-direction: column;
   align-items: center;
-  margin-top: 30px;
-  gap: 20px;
-  
 }
 
-.sale_test button {
-  height: 90px;
+.sale_list {
+  width: 500px;
+  background-color: #4f46e5;
+  margin-bottom: 40px;
+  border-radius: 10px;
+  color: #fff;
+  padding: 10px;
+}
+.sale {
   display: flex;
+  align-items: center;
+  height: 100px;
+  background-color: #4f46e5;
+  border-radius: 10px;
+}
+.sale button {
+  width: 100px;
+  height: 30px;
+  border-radius: 10px;
+  margin-right: 10px;
+  border: none;
+  background-color: #fff;
+  color: #4f46e5;
+}
+.sale span {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 5px;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.sale_list.expanded .itens {
+  max-height: 300px; /* Ajuste conforme o conteúdo */
+  padding: 10px 0;
+  opacity: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.itens {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0;
+  opacity: 0;
+  transition: max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease;
+}
+.itens footer {
+  background-color: #818cf8;
+  color: #fff;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 10px;
+  justify-content: space-between;
+}
+
+.expanded {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
