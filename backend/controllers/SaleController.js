@@ -49,26 +49,23 @@ module.exports = class SaleController {
     }
   }
 
-  static async getItensSales(req ,res){
+  static async getItensSales(req, res) {
+    const sales = await Sale.find().sort("numsales");
+    const itens = await SaleItems.find().sort("numsales");
+    console.log(sales);
 
-    const sales= await Sale.find().sort("numsales")
-    const itens= await SaleItems.find().sort("numsales")
-   
+    const Salelist = sales.map((sale) => {
+      return {
+        _id: sale._id,
+        numsales: sale.numsales,
+        totalvalue: sale.totalvalue,
+        receive: sale.receive,
+        change: sale.change,
+        username: sale.username,
+        itens: itens.filter((item) => item.numsales === sale.numsales),
+      };
+    });
 
-    const Salelist = sales.map(sale =>{
-      return{
-      numsales:sale.numsales,
-      totalvalue: sale.totalvalue,
-      receive: sale.receive,
-      change: sale.change,
-      username:sale.username,
-      itens: itens.filter(item => item.numsales === sale.numsales)
-      
-      }
-  })
-      
-      res.status(200).json({Salelist})
-
-
+    res.status(200).json({ Salelist });
   }
 };
