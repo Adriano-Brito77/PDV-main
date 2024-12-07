@@ -38,6 +38,14 @@ const Sale = () => {
   }, [barcode]);
 
   useEffect(() => {
+    if (receive >= totalvalue) {
+      setChange(receive - totalvalue);
+    } else {
+      setChange(0);
+    }
+  }, [receive]);
+
+  useEffect(() => {
     if (!items || items === null || items === undefined || items === " ") {
       setName("");
       setUnitPrice("");
@@ -88,12 +96,6 @@ const Sale = () => {
     ref.current.focus();
   };
 
-  const saleitens = {
-    totalvalue: totalvalue,
-    receive: receive,
-    change: change,
-    items: sale,
-  };
   const finishSale = async (e) => {
     e.preventDefault();
 
@@ -101,10 +103,12 @@ const Sale = () => {
     let type = "sucess";
     let background = "indigo";
 
-    if (receive) {
-      setChange(receive - totalvalue);
-    }
-    console.log(saleitens);
+    const saleitens = {
+      totalvalue: totalvalue,
+      receive: receive,
+      change: change,
+      items: sale,
+    };
 
     try {
       await api.post(

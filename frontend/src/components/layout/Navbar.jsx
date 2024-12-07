@@ -5,9 +5,9 @@ import { Context } from "../../context/UserContext";
 import { useContext } from "react";
 
 const Navbar = () => {
-  const { authenticated } = useContext(Context);
+  const { authenticated, logout } = useContext(Context);
   return (
-    <div className={styles.nav}>
+    <div className={authenticated ? styles.nav : styles.nav_off}>
       {authenticated && (
         <div className={styles.container_nav}>
           <div className={styles.link}>
@@ -17,7 +17,7 @@ const Navbar = () => {
             <Link to="/sale">Vender</Link>
           </div>
           <div className={styles.user}>
-            <Link>Sair</Link>
+            <Link onClick={() => logout()}>Sair</Link>
           </div>
         </div>
       )}

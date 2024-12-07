@@ -1,103 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import style from "./SaleList.module.css";
+import api from "../../utils/api";
 
 const Salelist = () => {
-  const salelist = [
-    {
-      _id: 1,
-      numsales: 1,
-      totalvalue: 30,
-      receive: 0,
-      change: 0,
-      username: "murilo",
-      itens: [
-        {
-          _id: "674f14dbd4a66fe9957622ea",
-          numsales: 1,
-          items: [
-            {
-              _id: "67472817dd85f6110115f935",
-              name: "Frango",
-              barcode: 6969,
-              unitprice: 20,
-              unit: "KG",
-              stok: 100,
-              createdAt: "2024-11-27T14:09:27.151Z",
-              updatedAt: "2024-11-27T14:09:27.151Z",
-              __v: 0,
-              salebalance: "1",
-              numitem: 1,
-            },
-            {
-              _id: "6733543c03c1c341d4324566",
-              name: "Coca 300ml",
-              barcode: 1010,
-              unit: "ML",
-              amount: 20,
-              createdAt: "2024-11-12T13:12:28.782Z",
-              updatedAt: "2024-12-03T12:56:01.705Z",
-              __v: 0,
-              stok: 100,
-              unitprice: 10,
-              salebalance: "1",
-              numitem: 2,
-            },
-          ],
-          createdAt: "2024-12-03T14:25:31.039Z",
-          updatedAt: "2024-12-03T14:25:31.039Z",
-          __v: 0,
-        },
-      ],
-    },
-    {
-      _id: 2,
-      numsales: 2,
-      totalvalue: 30,
-      receive: 0,
-      change: 0,
-      username: "Adriano",
-      itens: [
-        {
-          _id: "674f14dbd4a66fe9957622ea",
-          numsales: 2,
-          items: [
-            {
-              _id: "67472817dd85f6110115f935",
-              name: "pepsi",
-              barcode: 6969,
-              unitprice: 20,
-              unit: "KG",
-              stok: 100,
-              createdAt: "2024-11-27T14:09:27.151Z",
-              updatedAt: "2024-11-27T14:09:27.151Z",
-              __v: 0,
-              salebalance: "1",
-              numitem: 1,
-            },
-            {
-              _id: "6733543c03c1c341d4324566",
-              name: "Coca 300ml",
-              barcode: 1010,
-              unit: "ML",
-              amount: 20,
-              createdAt: "2024-11-12T13:12:28.782Z",
-              updatedAt: "2024-12-03T12:56:01.705Z",
-              __v: 0,
-              stok: 100,
-              unitprice: 10,
-              salebalance: "1",
-              numitem: 2,
-            },
-          ],
-          createdAt: "2024-12-03T14:25:31.039Z",
-          updatedAt: "2024-12-03T14:25:31.039Z",
-          __v: 0,
-        },
-      ],
-    },
-  ];
-
+  const [saleList, setSaleList] = useState([]);
   const [visible, setVisible] = useState([]);
+
+  console.log(saleList);
 
   const toggleExpand = (id) => {
     setVisible((prev) =>
@@ -105,10 +14,16 @@ const Salelist = () => {
     );
   };
 
+  useEffect(() => {
+    api.get("sales/salelist").then((response) => {
+      return setSaleList(response.data.Salelist);
+    });
+  }, []);
+
   return (
     <div className={style.container_sale_list}>
       <div className={style.card_sale}>
-        {salelist.map((sale) => {
+        {saleList.map((sale) => {
           const isActive = visible.includes(sale._id);
           return (
             <div

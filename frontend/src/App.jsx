@@ -18,10 +18,9 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <UserProvider>
-          <Navbar />
-          <Message />
-
           <div className="container">
+            <Navbar />
+            <Message />
             <Routes>
               <Route path="/" element={<Login />} />
               <Route path="/register" element={<Register />} />

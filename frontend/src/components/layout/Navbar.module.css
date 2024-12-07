@@ -2,12 +2,19 @@
   background-color: #4f46e5;
   padding: 8px;
 }
+.nav_off {
+  background-color: #fff;
+}
 
 .container_nav {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+}
+
+.container_nav_off {
+  background-color: #fff;
 }
 .container_nav img {
   height: 6vh;
